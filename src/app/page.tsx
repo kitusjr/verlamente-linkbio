@@ -1,9 +1,29 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Download, Book, Users, Coffee, Search, Instagram, Command, Mic, Package } from 'lucide-react';
 import VisitorCounter from '@/components/VisitorCounter';
+import { IconType } from 'react-icons';
+import { FiChevronDown, FiChevronUp, FiBook, FiBox, FiCoffee, FiGithub, FiInstagram, FiLinkedin, FiTwitter, FiYoutube } from 'react-icons/fi';
+import { HiOutlineFire } from 'react-icons/hi';
+
+// Mouse tracking for button hover effects
+const handleMouseMove = (e: MouseEvent) => {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  document.documentElement.style.setProperty('--mouse-x', `${x}%`);
+  document.documentElement.style.setProperty('--mouse-y', `${y}%`);
+};
+
+// Button hover effect handler
+const handleButtonHover = (e: React.MouseEvent<HTMLDivElement>) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
+  e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+};
 
 const subResources = [
   {
@@ -30,6 +50,16 @@ const subResources = [
 
 const links = [
   {
+    category: 'Mi libro',
+    action: 'VERLAMENTE',
+    shortcut: '⌘N',
+    shortcutLabel: 'Libro',
+    href: 'https://payhip.com/b/5ay2R',
+    icon: Book,
+    isDisabled: false,
+    target: '_blank'
+  },
+  {
     category: 'Recursos',
     action: 'Kit de creadores',
     shortcut: '⌘K',
@@ -38,16 +68,6 @@ const links = [
     icon: Download,
     isDisabled: false,
     hasSubItems: true,
-    target: '_self'
-  },
-  {
-    category: 'Mi libro',
-    action: 'próximamente...',
-    shortcut: '⌘N',
-    shortcutLabel: 'Libro',
-    href: '#',
-    icon: Book,
-    isDisabled: true,
     target: '_self'
   },
   {
@@ -77,7 +97,8 @@ const socials = [
     name: 'Instagram',
     href: 'https://www.instagram.com/verlamente/',
     icon: Instagram,
-    target: '_blank'
+    target: '_blank',
+    color: 'hover:text-pink-400'
   },
   {
     name: 'TikTok',
@@ -91,7 +112,8 @@ const socials = [
         <path d="M19.321 5.562a5.124 5.124 0 0 1-.443-.258 6.228 6.228 0 0 1-1.137-1.022C16.326 2.697 16.059 1.5 16.059 1.5h-3.074v14.738c0 .848-.489 1.58-1.2 1.94a2.228 2.228 0 0 1-1.007.242c-1.238 0-2.242-1.01-2.242-2.254s1.004-2.253 2.242-2.253c.247 0 .484.04.707.113V11.02c-.17-.023-.342-.035-.516-.035-2.582 0-4.674 2.105-4.674 4.703s2.092 4.703 4.674 4.703c2.582 0 4.674-2.105 4.674-4.703V8.063c1.027.957 2.35 1.547 3.801 1.547V6.598c-.472 0-.907-.113-1.295-.311a3.573 3.573 0 0 1-.829-.725Z"/>
       </svg>
     ),
-    target: '_blank'
+    target: '_blank',
+    color: 'hover:text-[#ff0050]'
   }
 ];
 
@@ -99,10 +121,29 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [mounted, setMounted] = useState(false);
   const [showSubResources, setShowSubResources] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleDropdownToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (showSubResources) {
+      setIsAnimatingOut(true);
+      const timer = setTimeout(() => {
+        setShowSubResources(false);
+        setIsAnimatingOut(false);
+      }, 300); // Match this with the animation duration
+      return () => clearTimeout(timer);
+    } else {
+      setShowSubResources(true);
+      setIsAnimatingOut(false);
+    }
+  };
 
   const filteredLinks = links.filter(link => 
     link.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -177,186 +218,179 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 md:p-0">
-      <div className={`w-full max-w-[440px] mx-auto space-y-1.5 px-6 md:px-4`}>
-        <h1 className={`text-xs text-gray-400 px-1 transition-all duration-1000 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-          mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-        }`}>
-          ¿Qué necesitas?
-        </h1>
+    <div className="fixed inset-0 flex items-center justify-center p-3 md:p-0">
+      <div className="w-full max-w-[380px] mx-auto">
+        <div className="glass-card p-3">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between px-1">
+              <h1 className="text-xs font-medium text-white/70">
+                ¿Qué necesitas?
+              </h1>
+              <div className="text-[9px] text-white/40">⌘K para buscar</div>
+            </div>
 
-        <div className={`relative transition-all duration-1000 ease-[cubic-bezier(0.16, 1, 0.3, 1)] delay-100 ${
-          mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-        }`}>
-          <input
-            type="text"
-            placeholder={placeholders[placeholderIndex]}
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              if (e.target.value !== '') {
-                setShowSubResources(true);
-              }
-            }}
-            onKeyDown={handleKeyDown}
-            className="w-full bg-black/40 text-sm font-medium text-gray-200 placeholder-gray-500 px-4 pr-12 py-1.5 rounded-md border border-white/[0.05] focus:outline-none focus:border-white/10 focus:bg-black/60 transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]"
-          />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <Search className="w-3.5 h-3.5 text-gray-500" />
-          </div>
-        </div>
-        
-        <div className={`bg-black/40 backdrop-blur-sm border border-white/[0.05] rounded-b-lg transition-all duration-1000 ease-[cubic-bezier(0.16, 1, 0.3, 1)] delay-200 ${
-          mounted ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-2 scale-99'
-        }`}>
-          <div>
-            {filteredLinks.map((link) => {
-              const Icon = link.icon;
-              const isInteractive = link.category === 'Colaboración' || link.category === 'Apoyo';
-              const isResources = link.category === 'Recursos';
-              return (
-                <div key={link.category}>
-                  {isResources ? (
-                    <button
-                      onClick={() => setShowSubResources(prev => !prev)}
-                      className={`block w-full text-left group`}
-                    >
-                      <div className="px-3 py-[9.5px] transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <Icon className={`w-3.5 h-3.5 transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-                              link.isDisabled ? 'text-gray-600' : 
-                              isResources ? 'text-gray-300 group-hover:text-white animate-pulse-glow' :
-                              'text-gray-300 group-hover:text-white'
-                            }`} />
-                            <div className="flex items-center space-x-2">
-                              <div className={`text-sm font-medium transition-colors duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-                                link.isDisabled ? 'text-gray-600' : 
-                                isInteractive ? 'text-gray-300 group-hover:text-white' : 'text-gray-300'
-                              }`}>{link.category}</div>
-                              <div className={`text-xs transition-colors duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-                                link.isDisabled ? 'italic text-gray-600' : 'text-gray-500 group-hover:text-gray-300'
-                              }`}>{link.action}</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1 text-[9px] text-gray-600 group-hover:text-gray-500">
-                            <Command className="w-3 h-3" />
-                            <span>{link.shortcut.replace('⌘', '')}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                  ) : (
+            <div className="relative">
+              <input
+                type="text"
+                placeholder={placeholders[placeholderIndex]}
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  if (e.target.value !== '') {
+                    setShowSubResources(true);
+                  }
+                }}
+                onKeyDown={handleKeyDown}
+                className="w-full h-8 glass-input rounded-lg px-3 pr-9 text-xs text-white/80 placeholder:text-white/30 focus:outline-none"
+              />
+              <Search className="w-3 h-3 text-white/30 absolute right-3 top-1/2 -translate-y-1/2" />
+            </div>
+
+            <div className="relative">
+              {filteredLinks.map((item, index) => {
+                const isResourcesItem = item.hasSubItems;
+                const nextItemsHeight = isResourcesItem && showSubResources ? 74 : 0;
+
+                return (
+                  <div 
+                    key={item.category}
+                    className="relative"
+                    style={{
+                      marginBottom: isResourcesItem && showSubResources ? `${nextItemsHeight}px` : '3px'
+                    }}
+                  >
                     <Link
-                      href={link.href}
-                      target={link.target}
-                      rel="noopener noreferrer"
-                      className={`block w-full text-left ${isInteractive ? 'group' : ''} ${link.isDisabled ? 'pointer-events-none' : ''}`}
+                      href={item.href}
+                      target={item.target}
+                      onClick={(e) => {
+                        if (item.isDisabled) e.preventDefault();
+                        if (item.hasSubItems) handleDropdownToggle(e);
+                      }}
+                      className={`block w-full ${item.isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      <div className="px-3 py-[9.5px] transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <Icon className={`w-3.5 h-3.5 transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-                              link.isDisabled ? 'text-gray-600' : 
-                              isResources ? 'text-gray-300 group-hover:text-white animate-pulse-glow' :
-                              'text-gray-300 group-hover:text-white'
-                            }`} />
-                            <div className="flex items-center space-x-2">
-                              <div className={`text-sm font-medium transition-colors duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-                                link.isDisabled ? 'text-gray-600' : 
-                                isInteractive ? 'text-gray-300 group-hover:text-white' : 'text-gray-300'
-                              }`}>{link.category}</div>
-                              <div className={`text-xs transition-colors duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] ${
-                                link.isDisabled ? 'italic text-gray-600' : 'text-gray-500 group-hover:text-gray-300'
-                              }`}>{link.action}</div>
+                      <div 
+                        className={`glass-button rounded-lg px-3 py-1.5 transition-all duration-300 ${
+                          item.hasSubItems && showSubResources ? 'bg-white/[0.02]' : ''
+                        } ${
+                          (item.category === 'Mi libro' || item.category === 'Recursos') ? 
+                          'animate-subtle-pulse before:absolute before:inset-0 before:rounded-lg before:border before:border-white/[0.08] before:animate-border-pulse after:absolute after:inset-0 after:rounded-lg after:bg-gradient-to-r after:from-white/[0.02] after:via-white/[0.04] after:to-white/[0.02] after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-500' : ''
+                        }`}
+                        onMouseMove={handleButtonHover}
+                      >
+                        <div className="flex items-center justify-between relative z-[1]">
+                          <div className="flex items-center space-x-2">
+                            <div className={`relative ${(item.category === 'Mi libro' || item.category === 'Recursos') ? 'animate-subtle-float' : ''}`}>
+                              <item.icon className={`w-3 h-3 ${
+                                item.isDisabled ? 'text-white/30' : 
+                                (item.category === 'Mi libro' || item.category === 'Recursos') ? 'text-white/90' : 'text-white/60'
+                              }`} />
+                              {(item.category === 'Mi libro' || item.category === 'Recursos') && (
+                                <>
+                                  <div className="absolute -inset-1.5 bg-white/[0.03] rounded-full blur-sm animate-pulse-slow" />
+                                  <div className="absolute -inset-3 bg-gradient-to-r from-white/[0.01] via-white/[0.02] to-white/[0.01] rounded-full blur-lg animate-glow-slow" />
+                                </>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <div className={`text-xs font-medium ${
+                                (item.category === 'Mi libro' || item.category === 'Recursos') ? 
+                                'text-white/90 drop-shadow-sm' : 'text-white/80'
+                              }`}>{item.category}</div>
+                              <div className={`text-[10px] ${
+                                (item.category === 'Mi libro' || item.category === 'Recursos') ? 
+                                'text-white/50' : 'text-white/40'
+                              }`}>• {item.action}</div>
                             </div>
                           </div>
-                          <div className="flex items-center gap-1 text-[9px] text-gray-600 group-hover:text-gray-500">
-                            <Command className="w-3 h-3" />
-                            <span>{link.shortcut.replace('⌘', '')}</span>
+                          <div className="glass-morphism px-1.5 py-0.5 rounded">
+                            <div className="flex items-center space-x-1">
+                              <Command className="w-2 h-2 text-white/30" />
+                              <span className="text-[9px] text-white/40">{item.shortcut.replace('⌘', '')}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </Link>
-                  )}
-                  {isResources && (
-                    <div 
-                      className={`pl-4 border-l border-white/[0.03] ml-3 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]`}
-                      style={{
-                        height: showSubResources ? `${filteredSubResources.length * 38}px` : '0',
-                        opacity: showSubResources ? 1 : 0,
-                      }}
-                    >
-                      {filteredSubResources.map((subLink, index) => {
-                        const SubIcon = subLink.icon;
-                        return (
-                          <Link
-                            key={subLink.category}
-                            href={subLink.href}
-                            target={subLink.target}
-                            rel="noopener noreferrer"
-                            className={`block transform transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] group hover:text-white`}
-                            style={{
-                              transform: showSubResources ? 'translateY(0)' : 'translateY(-8px)',
-                              opacity: showSubResources ? 1 : 0,
-                              transitionDelay: `${index * 100}ms`
-                            }}
-                          >
-                            <div className="px-3 py-2 transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2.5">
-                                  <SubIcon className="w-3.5 h-3.5 text-gray-300 group-hover:text-white" />
+
+                    {isResourcesItem && (showSubResources || isAnimatingOut) && (
+                      <div 
+                        ref={dropdownRef}
+                        className={`absolute left-0 right-0 ${isAnimatingOut ? 'dropdown-exit' : 'dropdown-enter'}`}
+                        style={{
+                          position: 'absolute',
+                          top: 'calc(100% + 4px)',
+                          left: 0,
+                          right: 0,
+                          zIndex: 50
+                        }}
+                      >
+                        <div className="glass-card overflow-hidden border border-white/[0.03] shadow-lg shadow-black/5">
+                          {filteredSubResources.map((link, idx) => (
+                            <Link
+                              key={link.category}
+                              href={link.href}
+                              target={link.target}
+                              className="block w-full"
+                            >
+                              <div 
+                                className={`glass-button relative px-3 py-1.5 hover:bg-white/[0.02] ${
+                                  isAnimatingOut ? 'dropdown-item-exit' : 'dropdown-item-enter'
+                                } ${idx === 0 ? 'after:absolute after:left-4 after:right-4 after:bottom-0 after:h-[1px] after:bg-white/[0.02]' : ''}`}
+                                style={{
+                                  animationDelay: isAnimatingOut ? `${idx * 0.02}s` : `${idx * 0.03}s`
+                                }}
+                                onMouseMove={handleButtonHover}
+                              >
+                                <div className="flex items-center justify-between relative z-[1]">
                                   <div className="flex items-center space-x-2">
-                                    <div className="text-sm font-medium text-gray-300 group-hover:text-white">{subLink.category}</div>
-                                    <div className="text-xs text-gray-500 group-hover:text-gray-300">{subLink.action}</div>
-                                    <span className="px-1 py-0.5 text-[8px] font-medium rounded bg-gradient-to-r from-premium-light via-premium to-premium-light bg-[length:200%_100%] animate-shimmer text-black/80">PREMIUM</span>
+                                    <link.icon className="w-3 h-3 text-white/60" />
+                                    <div className="flex items-center gap-1.5">
+                                      <div className="text-xs font-medium text-white/80">{link.category}</div>
+                                      <div className="text-[10px] text-white/40">• {link.action}</div>
+                                    </div>
+                                  </div>
+                                  <div className="glass-morphism px-1.5 py-0.5 rounded-md bg-white/[0.02]">
+                                    <div className="flex items-center space-x-1">
+                                      <Command className="w-2 h-2 text-white/30" />
+                                      <span className="text-[9px] text-white/40">{link.shortcut.replace('⌘', '')}</span>
+                                    </div>
                                   </div>
                                 </div>
-                                <div className="flex items-center gap-1 text-[9px] text-gray-600">
-                                  <Command className="w-3 h-3" />
-                                  <span>{subLink.shortcut.replace('⌘', '')}</span>
-                                </div>
                               </div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className={`border-t border-white/[0.03] px-4 py-3 transition-all duration-1000 ease-[cubic-bezier(0.16, 1, 0.3, 1)] delay-[500ms] ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
-          }`}>
-            <div className="flex flex-col space-y-2">
-              <div className="text-xs text-gray-500">Síguenos en:</div>
-              <div className="flex flex-col space-y-2.5">
-                {socials.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <Link
-                      key={social.name}
-                      href={social.href}
-                      target={social.target}
-          rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-white transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] flex items-center space-x-2 group px-2 py-1 rounded-md"
-                    >
-                      <Icon className="w-3.5 h-3.5 transition-colors duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] group-hover:text-white" />
-                      <span className="text-xs transition-colors duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] group-hover:text-white">{social.name}</span>
-                    </Link>
-                  );
-                })}
-              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          <div className={`border-t border-white/[0.03] transition-all duration-1000 ease-[cubic-bezier(0.16, 1, 0.3, 1)] delay-[700ms] ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
-          }`}>
-            <VisitorCounter />
+          <div className="flex items-center justify-center mt-3">
+            <div className="flex items-center gap-1.5">
+              {socials.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.href}
+                  target={social.target}
+                  className="block"
+                >
+                  <div 
+                    className="glass-button p-1.5 rounded-lg group hover:bg-white/[0.02] hover:scale-105 transition-all duration-300"
+                    onMouseMove={handleButtonHover}
+                  >
+                    <div className="relative z-[1]">
+                      <social.icon 
+                        className={`w-3.5 h-3.5 text-white/70 transition-all duration-300 ${social.color}`} 
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

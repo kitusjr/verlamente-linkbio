@@ -35,8 +35,8 @@ export function BackgroundAnimation() {
     };
 
     const animate = () => {
-      cursorBlurX += (cursorX - cursorBlurX) * 0.1;
-      cursorBlurY += (cursorY - cursorBlurY) * 0.1;
+      cursorBlurX += (cursorX - cursorBlurX) * 0.05;
+      cursorBlurY += (cursorY - cursorBlurY) * 0.05;
 
       if (cursorRef.current && cursorBlurRef.current) {
         cursorRef.current.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
@@ -99,7 +99,7 @@ export function BackgroundAnimation() {
           filter: blur(60px);
           opacity: 0.8;
           transform-origin: center;
-          transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
           will-change: transform, filter;
         }
 
@@ -113,7 +113,7 @@ export function BackgroundAnimation() {
           );
           mix-blend-mode: overlay;
           filter: blur(40px);
-          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
           will-change: transform, filter, opacity;
         }
 
@@ -136,7 +136,7 @@ export function BackgroundAnimation() {
           );
           opacity: 0.5;
           backdrop-filter: blur(20px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .vignette {
@@ -161,7 +161,10 @@ export function BackgroundAnimation() {
           pointer-events: none;
           z-index: 9999;
           mix-blend-mode: difference;
-          transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s;
+          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    top 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           will-change: transform;
         }
 
@@ -177,6 +180,7 @@ export function BackgroundAnimation() {
           z-index: 9998;
           filter: blur(8px);
           will-change: transform;
+          transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @media (hover: none) and (pointer: coarse) {
