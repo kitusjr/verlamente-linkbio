@@ -10,6 +10,7 @@
     "icons": "node scripts/convert-icons.mjs"
   },
   "dependencies": {
+    "critters": "^0.0.25",
     "framer-motion": "^12.18.1",
     "lucide-react": "^0.511.0",
     "next": "^15.3.2",
