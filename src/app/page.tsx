@@ -123,13 +123,13 @@ export default function Home() {
   const [typingText, setTypingText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingIndex, setTypingIndex] = useState(0);
-  const animationTimeoutRef = useRef<NodeJS.Timeout>();
+  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorTrailRef = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
+  const previousTimeRef = useRef<number | null>(null);
   const cursorVelocity = useRef({ x: 0, y: 0 });
   const cursorPositionRef = useRef({ x: 0, y: 0 });
 
@@ -265,7 +265,7 @@ export default function Home() {
   };
 
   const animateCursor = (time: number) => {
-    if (previousTimeRef.current !== undefined) {
+    if (previousTimeRef.current !== null) {
       const deltaTime = time - previousTimeRef.current;
       
       // Smooth interpolation
