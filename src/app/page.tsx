@@ -493,6 +493,12 @@ export default function Home() {
           border-color: rgba(255, 255, 255, 0.1);
         }
 
+        @media (hover: none) and (pointer: coarse) {
+          .custom-cursor, .cursor-trail {
+            display: none !important;
+          }
+        }
+
         @keyframes slideDown {
           from {
             opacity: 0;
