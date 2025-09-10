@@ -20,6 +20,16 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Asegurar que los elementos interactivos funcionen */
+button, a, input, select, textarea {
+  pointer-events: auto;
+}
+
+/* Elementos de fondo no deben interceptar clicks */
+.background-element {
+  pointer-events: none;
+}
+
 /* Scrollbars sutiles (WebKit) */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }

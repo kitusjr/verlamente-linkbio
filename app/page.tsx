@@ -4,22 +4,19 @@ import BannerLaunch from "@/components/BannerLaunch";
 
 export default function Page() {
   return (
-    <main className="min-h-[100svh] w-full">
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-14">
-        <header className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
-            VERLAMENTE — recursos y formación para creadores
+    <main className="min-h-screen w-full flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md">
+        <header className="text-center mb-8">
+          <h1 className="text-xl md:text-2xl font-bold mb-2 text-white">
+            VERLAMENTE
           </h1>
-          <p className="mt-2 text-sm text-white/70">
-            Clips, voces IA y un método real para crecer con vídeo.
+          <p className="text-sm text-white/70">
+            Recursos y formación para creadores
           </p>
         </header>
 
-        <div className="space-y-4">
-          <CourseCard />
-          {/* Aquí puedes añadir otras tarjetas/links más adelante */}
-        </div>
-      </section>
+        <CourseCard />
+      </div>
 
       <BannerLaunch />
     </main>
