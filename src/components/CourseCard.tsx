@@ -14,22 +14,12 @@ export default function CourseCard() {
 
   return (
     <article
-      className="
-        group relative isolate overflow-hidden rounded-3xl
-        border border-white/10 bg-white/[0.035] ring-1 ring-white/[0.06]
-        p-5 sm:p-6 md:p-7
-        shadow-[0_1px_0_rgba(255,255,255,0.04),0_18px_40px_rgba(0,0,0,0.35)]
-        transition-all duration-300
-        hover:border-sky-400/30 hover:shadow-[0_12px_30px_rgba(2,132,199,0.12)]
-        hover:-translate-y-1
-      "
+      className="group relative isolate overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] ring-1 ring-white/[0.06] p-5 sm:p-6 md:p-7 shadow-[0_1px_0_rgba(255,255,255,0.04),0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-sky-400/30 hover:shadow-[0_12px_30px_rgba(2,132,199,0.12)] hover:-translate-y-1"
     >
       {/* Halo sutil (decorativo) */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 rounded-[22px]
-                   bg-[radial-gradient(80%_60%_at_0%_0%,rgba(56,189,248,0.06),transparent_55%),radial-gradient(80%_60%_at_100%_0%,rgba(16,185,129,0.06),transparent_55%)]
-                   transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-[22px] bg-[radial-gradient(80%_60%_at_0%_0%,rgba(56,189,248,0.06),transparent_55%),radial-gradient(80%_60%_at_100%_0%,rgba(16,185,129,0.06),transparent_55%)] transition-opacity duration-300 opacity-0 group-hover:opacity-100"
       />
 
 
