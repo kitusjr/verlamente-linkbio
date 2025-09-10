@@ -307,12 +307,12 @@
 body {
   @apply text-white/90;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   position: relative;
+  /* permitimos scroll vertical y evitamos ancho extra */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 
 body::before {
   content: '';

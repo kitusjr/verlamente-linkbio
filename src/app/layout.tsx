@@ -55,7 +55,10 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-[radial-gradient(40%_30%_at_10%_20%,rgba(59,130,246,0.08),transparent_65%)]" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0C10]" />
         </div>
-        <BackgroundAnimation />
+        <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+  <BackgroundAnimation />
+</div>
+
         <div id="scroll-root" className="relative min-h-[100svh] overflow-y-auto">
           {children}
         </div>
