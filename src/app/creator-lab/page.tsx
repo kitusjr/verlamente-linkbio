@@ -54,7 +54,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div ref={ref} className={`${styles.fadeScroll} ${styles.viewport} fixed inset-0`}>
+    <div ref={ref} className={`${styles.fadeScroll} ${styles.viewport} min-h-[100svh] overflow-x-hidden`}>
       <main className="w-full px-4 md:px-6 max-w-[1160px] lg:max-w-[1240px] xl:max-w-[1320px] mx-auto pt-6 md:pt-8 pb-[max(96px,env(safe-area-inset-bottom))] text-foreground">
         <header className="mb-5 md:mb-7">
           <h1 className="sr-only">Creator Lab — Crea vídeos virales en minutos con el mismo sistema que uso cada día.</h1>
