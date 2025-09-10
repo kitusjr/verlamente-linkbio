@@ -47,7 +47,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className="min-h-screen bg-[#0A0C10] text-slate-200 antialiased overflow-x-hidden">
+      <body className="min-h-screen bg-[#0A0C10] text-slate-200 antialiased">
         <ScrollUnlocker />
         {/* Fondo global seguro (fijo, no interactivo) */}
         <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
