@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { BackgroundAnimation } from './components/BackgroundAnimation';
+import ScrollUnlocker from "@/components/ScrollUnlocker";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,12 +42,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className="h-full scroll-smooth [color-scheme:dark]">
+    <html lang="es" className="h-full scroll-smooth">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className="min-h-screen bg-[#0A0C10] text-slate-200 antialiased overflow-x-hidden selection:bg-sky-500/20 selection:text-sky-100">
+      <body className="min-h-screen bg-[#0A0C10] text-slate-200 antialiased overflow-x-hidden">
+        <ScrollUnlocker />
         {/* Fondo global seguro (fijo, no interactivo) */}
         <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_-10%,rgba(56,189,248,0.10),transparent_60%)]" />
@@ -54,7 +56,9 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0C10]" />
         </div>
         <BackgroundAnimation />
-        {children}
+        <div id="scroll-root" className="relative min-h-[100svh] overflow-y-auto">
+          {children}
+        </div>
       </body>
     </html>
   );

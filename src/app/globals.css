@@ -405,16 +405,12 @@ body::after {
   background: rgba(255, 255, 255, 0.15);
 }
 
-html, body {
-  height: auto;
-  min-height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (max-width: 768px) {
-  html, body {
-    min-height: 100svh;
-  }
-}
+/* ===== Scroll defaults seguros ===== */
+html { height: 100%; }
+body { min-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+#scroll-root { min-height: 100svh; }
+/* Evita que un main encajone la página */
+main { min-height: 100%; }
+/* No bloquear el gesto de desplazar */
+html, body { touch-action: pan-y; }
 
