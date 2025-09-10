@@ -13,15 +13,12 @@ export default function CourseCard() {
   ];
 
   return (
-    <article
-      className="group relative isolate overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] ring-1 ring-white/[0.06] p-5 sm:p-6 md:p-7 shadow-[0_1px_0_rgba(255,255,255,0.04),0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-sky-400/30 hover:shadow-[0_12px_30px_rgba(2,132,199,0.12)] hover:-translate-y-1"
-    >
+    <article className="group relative isolate overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] ring-1 ring-white/[0.06] p-5 sm:p-6 md:p-7 shadow-[0_1px_0_rgba(255,255,255,0.04),0_18px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-sky-400/30 hover:shadow-[0_12px_30px_rgba(2,132,199,0.12)] hover:-translate-y-1">
       {/* Halo sutil (decorativo) */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 rounded-[22px] bg-[radial-gradient(80%_60%_at_0%_0%,rgba(56,189,248,0.06),transparent_55%),radial-gradient(80%_60%_at_100%_0%,rgba(16,185,129,0.06),transparent_55%)] transition-opacity duration-300 opacity-0 group-hover:opacity-100"
       />
-
 
       {/* GRID desktop: [icono | contenido | precio/CTA]; en móvil, pila vertical */}
       <div className="grid gap-6 md:grid-cols-[auto_1fr_auto] md:items-center">
@@ -34,7 +31,6 @@ export default function CourseCard() {
 
         {/* Contenido */}
         <div className="min-w-0">
-
           {/* Título y subtítulo */}
           <Link href="/creator-lab" prefetch={false} className="block">
             <h3 className="text-lg font-bold leading-tight tracking-tight text-slate-100">
@@ -61,10 +57,7 @@ export default function CourseCard() {
           <div className="mt-4 md:hidden">
             <Link
               href="/creator-lab"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white
-                         bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))]
-                         ring-1 ring-white/10 shadow-[0_10px_30px_rgba(2,132,199,0.18)]
-                         transition active:scale-[0.99] hover:brightness-110"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))] ring-1 ring-white/10 shadow-[0_10px_30px_rgba(2,132,199,0.18)] transition active:scale-[0.99] hover:brightness-110"
               aria-label="Unirme ahora a Creator Lab"
             >
               Unirme ahora
@@ -86,10 +79,7 @@ export default function CourseCard() {
 
           <Link
             href="/creator-lab"
-            className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white
-                       bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))]
-                       ring-1 ring-white/10 shadow-[0_10px_30px_rgba(2,132,199,0.18)]
-                       transition active:scale-[0.99] hover:brightness-110"
+            className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))] ring-1 ring-white/10 shadow-[0_10px_30px_rgba(2,132,199,0.18)] transition active:scale-[0.99] hover:brightness-110"
             aria-label="Unirme ahora a Creator Lab"
           >
             Unirme ahora
