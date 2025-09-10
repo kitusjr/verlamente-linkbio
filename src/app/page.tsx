@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Download, Book, Users, Coffee, Search, Instagram, Command, Mic, Package, Video } from 'lucide-react';
 import VisitorCounter from '@/components/VisitorCounter';
@@ -300,155 +300,182 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-[100svh] overflow-x-hidden">
-      <div className="fixed inset-0 flex items-center justify-center p-3 md:p-0">
-        <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto">
-          <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
-            <div className="space-y-3 md:space-y-4">
-              <div className="flex items-center justify-between px-1">
-                <h1 className="text-xs font-medium text-white/80">
-                  ¿Qué necesitas?
-                </h1>
-                <div className="text-[9px] text-white/50">⌘K para buscar</div>
-              </div>
+    <>
+      {/* WRAPPER: fija el ámbito de los overrides SOLO para la home */}
+      <main id="home-fix" className="relative z-0 min-h-[100svh] w-full bg-transparent text-slate-200">
+        {/* ÁREA SCROLLEABLE explícita (por si un padre flex estaba encajonando) */}
+        <div id="home-scroll" className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="fixed inset-0 flex items-center justify-center p-3 md:p-0">
+            <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto">
+              <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex items-center justify-between px-1">
+                    <h1 className="text-xs font-medium text-white/80">
+                      ¿Qué necesitas?
+                    </h1>
+                    <div className="text-[9px] text-white/50">⌘K para buscar</div>
+                  </div>
 
-              <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2">
-                  <FiSearch className="w-4 h-4 text-white/40" />
-                </div>
-                <input
-                  type="text"
-                  placeholder={typingText}
-                  value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    if (e.target.value !== '') {
-                      setShowSubResources(true);
-                    }
-                  }}
-                  onKeyDown={handleKeyDown}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white/20 transition-all duration-300 ease-out hover:bg-white/[0.05] focus:scale-[1.02] focus:shadow-lg focus:shadow-black/20"
-                />
-              </div>
-
-              <div className="space-y-2.5">
-                {/* CARD — CREATOR LAB DESTACADA */}
-                <CourseCard />
-
-                {filteredLinks.map((link, idx) => {
-                  const isResourcesItem = link.hasSubItems;
-                  return (
-                    <div
-                      key={idx}
-                      className={`relative group cursor-pointer ${
-                        link.isDisabled ? 'opacity-50 cursor-not-allowed' : ''
-                      }`}
-                      onClick={(e) => {
-                        if (link.isDisabled) return;
-                        if (link.hasSubItems) {
-                          handleResourcesClick(e);
-                        } else {
-                          window.open(link.href, link.target || '_self');
+                  <div className="relative">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                      <FiSearch className="w-4 h-4 text-white/40" />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder={typingText}
+                      value={searchTerm}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        if (e.target.value !== '') {
+                          setShowSubResources(true);
                         }
                       }}
-                    >
-                      <div className={`backdrop-blur-xl ${
-                        idx === 0 ? 'premium-card' : 'bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12]'
-                      } transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5`}>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3.5">
-                            <div className={`w-8 h-8 rounded-lg ${
-                              idx === 0 ? 'premium-icon' : 'bg-white/[0.04] border border-white/[0.08]'
-                            } flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110`}>
-                              <link.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
-                            </div>
-                            <div className="space-y-1">
-                              <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.category}</div>
-                              <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{link.action}</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
-                              <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.shortcut}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      onKeyDown={handleKeyDown}
+                      className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white/20 transition-all duration-300 ease-out hover:bg-white/[0.05] focus:scale-[1.02] focus:shadow-lg focus:shadow-black/20"
+                    />
+                  </div>
 
-                      {isResourcesItem && (showSubResources || isAnimatingOut) && (
-                        <div 
-                          ref={dropdownRef}
-                          className={`mt-2 ${
-                            isAnimatingOut 
-                              ? 'animate-dropdown-exit' 
-                              : 'animate-dropdown-enter'
+                  <div className="space-y-2.5">
+                    {/* CARD — CREATOR LAB DESTACADA */}
+                    <CourseCard />
+
+                    {filteredLinks.map((link, idx) => {
+                      const isResourcesItem = link.hasSubItems;
+                      return (
+                        <div
+                          key={idx}
+                          className={`relative group cursor-pointer ${
+                            link.isDisabled ? 'opacity-50 cursor-not-allowed' : ''
                           }`}
+                          onClick={(e) => {
+                            if (link.isDisabled) return;
+                            if (link.hasSubItems) {
+                              handleResourcesClick(e);
+                            } else {
+                              window.open(link.href, link.target || '_self');
+                            }
+                          }}
                         >
-                          <div className="pl-6 space-y-2.5">
-                            {filteredSubResources.map((subLink, idx) => (
-                              <div
-                                key={idx}
-                                className="relative group cursor-pointer"
-                                onClick={() => window.open(subLink.href, subLink.target || '_self')}
-                              >
-                                <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3.5">
-                                      <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110">
-                                        <subLink.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
-                                      </div>
-                                      <div className="space-y-1">
-                                        <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{subLink.category}</div>
-                                        <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{subLink.action}</div>
-                                      </div>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
-                                        <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{subLink.shortcut}</span>
+                          <div className={`backdrop-blur-xl ${
+                            idx === 0 ? 'premium-card' : 'bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12]'
+                          } transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5`}>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3.5">
+                                <div className={`w-8 h-8 rounded-lg ${
+                                  idx === 0 ? 'premium-icon' : 'bg-white/[0.04] border border-white/[0.08]'
+                                } flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110`}>
+                                  <link.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
+                                </div>
+                                <div className="space-y-1">
+                                  <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.category}</div>
+                                  <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{link.action}</div>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                                  <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.shortcut}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {isResourcesItem && (showSubResources || isAnimatingOut) && (
+                            <div 
+                              ref={dropdownRef}
+                              className={`mt-2 ${
+                                isAnimatingOut 
+                                  ? 'animate-dropdown-exit' 
+                                  : 'animate-dropdown-enter'
+                              }`}
+                            >
+                              <div className="pl-6 space-y-2.5">
+                                {filteredSubResources.map((subLink, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="relative group cursor-pointer"
+                                    onClick={() => window.open(subLink.href, subLink.target || '_self')}
+                                  >
+                                    <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5">
+                                      <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3.5">
+                                          <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110">
+                                            <subLink.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
+                                          </div>
+                                          <div className="space-y-1">
+                                            <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{subLink.category}</div>
+                                            <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{subLink.action}</div>
+                                          </div>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                          <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                                            <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{subLink.shortcut}</span>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+                      );
+                    })}
+                  </div>
 
-              <div className="pt-2">
-                <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] rounded-xl p-3 shadow-lg shadow-black/10">
-                  <div className="flex items-center justify-center">
-                    <div className="flex items-center gap-3">
-                      {socials.map((social, index) => (
-                        <a
-                          key={index}
-                          href={social.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group relative"
-                          title={social.name}
-                        >
-                          <div className="w-7 h-7 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
-                            <social.icon className="w-3.5 h-3.5 text-white/60 transition-all duration-300 group-hover:text-white/80 group-hover:scale-110" />
-                          </div>
-                          <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/90 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                            {social.name}
-                          </div>
-                        </a>
-                      ))}
+                  <div className="pt-2">
+                    <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] rounded-xl p-3 shadow-lg shadow-black/10">
+                      <div className="flex items-center justify-center">
+                        <div className="flex items-center gap-3">
+                          {socials.map((social, index) => (
+                            <a
+                              key={index}
+                              href={social.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative"
+                              title={social.name}
+                            >
+                              <div className="w-7 h-7 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                                <social.icon className="w-3.5 h-3.5 text-white/60 transition-all duration-300 group-hover:text-white/80 group-hover:scale-110" />
+                              </div>
+                              <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/90 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                                {social.name}
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <ActiveVisitors />
         </div>
-      </div>
-      <ActiveVisitors />
+      </main>
+
+      {/* Overrides LOCALES SOLO PARA LA HOME */}
+      <style jsx global>{`
+        /* ——— Visibilidad: si algo quedó oculto en móvil, lo mostramos ——— */
+        @media (max-width: 768px) {
+          #home-fix { opacity: 1 !important; visibility: visible !important; }
+          #home-fix .opacity-0 { opacity: 1 !important; }
+          #home-fix .invisible { visibility: visible !important; }
+          /* Si hay secciones con 'hidden' en móvil, forzamos display */
+          #home-fix .hidden { display: block !important; }
+        }
+
+        /* ——— Overlays decorativos que podrían tapar la UI en móvil ——— */
+        /* Si existe un fondo/halo full-screen en la home, que no intercepte toques ni tape el contenido */
+        #home-fix .fixed.inset-0 { pointer-events: none; z-index: -1; }
+        /* Variante por estilos inline */
+        #home-fix [style*="position: fixed"][style*="inset: 0"] { pointer-events: none; z-index: -1; }
+
+        /* ——— Scroll estable en la propia página ——— */
+        #home-scroll { overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; }
+      `}</style>
       <style jsx global>{`
         * {
           cursor: none !important;
@@ -581,6 +608,6 @@ export default function Home() {
         ref={cursorTrailRef}
         className={`cursor-trail ${isPointer ? 'pointer' : ''}`}
       />
-    </main>
+    </>
   );
 }

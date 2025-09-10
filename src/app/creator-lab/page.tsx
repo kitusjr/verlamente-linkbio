@@ -57,9 +57,9 @@ export default function Page() {
   return (
     <>
       <RouteScrollFix />
-      {/* WRAPPER DE PÁGINA (flex para que el área de scroll funcione bien en todos los casos) */}
-      <div className="flex min-h-[100svh] w-full flex-col">
-        {/* ÁREA SCROLLEABLE: min-h-0 + flex-1 son CLAVE si hay padres display:flex */}
+      {/* Wrapper de ruta: identifica esta página para aplicar estilos locales */}
+      <div id="creator-lab-page" className="flex min-h-[100svh] w-full flex-col">
+        {/* Área SCROLLEABLE: min-h-0 + flex-1 son CLAVE si hay padres display:flex */}
         <div id="cl-scroll" className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
           <div ref={ref} className={`${styles.fadeScroll} ${styles.viewport} min-h-[100svh] overflow-x-hidden`}>
             <main className="w-full px-4 md:px-6 max-w-[1160px] lg:max-w-[1240px] xl:max-w-[1320px] mx-auto pt-6 md:pt-8 pb-[max(96px,env(safe-area-inset-bottom))] text-foreground">
@@ -277,14 +277,7 @@ export default function Page() {
                 </section>
 
                 <div
-                  className="
-                    fixed bottom-4 left-1/2 z-50 w-[95%] max-w-3xl -translate-x-1/2
-                    rounded-2xl border border-white/10 bg-black/70 backdrop-blur-sm
-                    px-4 py-3 sm:px-6 sm:py-4
-                    flex items-center justify-between gap-4
-                    shadow-[0_8px_30px_rgba(0,0,0,0.4)]
-                    pointer-events-none
-                  "
+                  className="fixed bottom-4 left-1/2 z-50 w-[95%] max-w-3xl -translate-x-1/2 rounded-2xl border border-white/10 bg-black/70 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.4)] pointer-events-none"
                 >
                   {/* Texto de lanzamiento */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 text-sm">
@@ -300,13 +293,7 @@ export default function Page() {
                   {/* Botón CTA */}
                   <a
                     href="http://localhost:3000/creator-lab"
-                    className="
-                      shrink-0 rounded-xl bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))]
-                      px-4 py-2 text-sm font-semibold text-white
-                      shadow-[0_10px_30px_rgba(2,132,199,0.18)]
-                      transition active:scale-[0.99] hover:brightness-110
-                      pointer-events-auto
-                    "
+                    className="shrink-0 rounded-xl bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(2,132,199,0.18)] transition active:scale-[0.99] hover:brightness-110 pointer-events-auto"
                   >
                     Unirme ahora
                   </a>
@@ -316,6 +303,26 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      {/* Overrides LOCALES SOLO PARA ESTA RUTA (no tocan global) */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          /* 1) Neutraliza overlays decorativos que cubren toda la pantalla */
+          #creator-lab-page .fixed.inset-0 { pointer-events: none; z-index: -1; }
+          /* Si algún overlay viene por estilo inline */
+          #creator-lab-page [style*="position: fixed"][style*="inset: 0"] { pointer-events: none; z-index: -1; }
+
+          /* 2) Anula alturas fijas que encajonan (h-screen) dentro de esta ruta */
+          #creator-lab-page .h-screen { height: auto; min-height: 100svh; }
+
+          /* 3) Desbloquea contenedores que oculten el scroll por overflow-hidden */
+          #creator-lab-page .overflow-hidden { overflow: visible; }
+
+          /* 4) Asegura scroll fluido en móviles */
+          html, body { -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+          #cl-scroll { overscroll-behavior-y: contain; }
+        `
+      }} />
     </>
   );
 }
