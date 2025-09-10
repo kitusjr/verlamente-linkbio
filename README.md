@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Creator Lab - Clean Version
 
-## Getting Started
+Una versión limpia del proyecto Creator Lab construida con Next.js 15, TypeScript y Tailwind CSS.
 
-First, run the development server:
+## 🚀 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 15.5.2** con App Router
+- **TypeScript** para tipado estático
+- **Tailwind CSS** para estilos
+- **Responsive Design** para móvil y desktop
+- **Scroll normal** sin bloqueos
+- **Componentes reutilizables**
+- **Animaciones suaves**
+- **Cursor personalizado**
+
+## 📁 Estructura del Proyecto
+
+```
+creator-lab-clean/
+├── app/
+│   ├── globals.css          # Estilos globales
+│   ├── layout.tsx           # Layout principal
+│   ├── page.tsx             # Página home
+│   └── creator-lab/
+│       └── page.tsx         # Página del curso
+├── components/
+│   ├── CourseCard.tsx       # Componente de tarjeta de curso
+│   └── BannerLaunch.tsx     # Banner promocional
+├── public/
+│   ├── favicon.png          # Favicon
+│   └── assets/
+│       └── logopng.png      # Logo del curso
+└── vercel.json              # Configuración de Vercel
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Instalación
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Instalar dependencias
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Ejecutar en desarrollo
+npm run dev
 
-## Learn More
+# Build para producción
+npm run build
 
-To learn more about Next.js, take a look at the following resources:
+# Iniciar servidor de producción
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Despliegue
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+El proyecto está configurado para desplegarse en Vercel:
 
-## Deploy on Vercel
+1. Conecta tu repositorio a Vercel
+2. Selecciona la rama `clean-version`
+3. Vercel detectará automáticamente la configuración de Next.js
+4. El despliegue se realizará automáticamente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📱 Páginas
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Home** (`/`): Página principal con hero section y enlaces rápidos
+- **Creator Lab** (`/creator-lab`): Página detallada del curso
+
+## ✨ Funcionalidades
+
+### Página Home
+- Hero section con animación de texto
+- Enlaces rápidos con efectos hover
+- Dropdown de recursos
+- Curso destacado
+- Enlaces sociales
+- Cursor personalizado
+
+### Página Creator Lab
+- Información detallada del curso
+- Video preview
+- Lista de beneficios
+- Grid de características
+- CTA de compra
+- Cursos relacionados
+
+### Componentes
+- **CourseCard**: Tarjeta reutilizable para mostrar cursos
+- **BannerLaunch**: Banner flotante que no bloquea el scroll
+
+## 🎨 Estilos
+
+- **Tailwind CSS** para estilos utilitarios
+- **Gradientes** y efectos de glassmorphism
+- **Animaciones** suaves con CSS
+- **Responsive** design para todos los dispositivos
+- **Cursor personalizado** para desktop
+
+## 🔧 Configuración
+
+- **TypeScript** configurado con tipos estrictos
+- **ESLint** para linting de código
+- **PostCSS** para procesamiento de CSS
+- **Turbopack** para builds rápidos
+
+## 📦 Dependencias
+
+- `next`: Framework de React
+- `react`: Biblioteca de UI
+- `typescript`: Tipado estático
+- `tailwindcss`: Framework de CSS
+- `lucide-react`: Iconos
+- `@tailwindcss/postcss`: Plugin de PostCSS
+
+## 🚀 Performance
+
+- **Build optimizado**: 15.1 kB (home), 13.8 kB (creator-lab)
+- **Páginas estáticas** pre-renderizadas
+- **Lazy loading** de imágenes
+- **Code splitting** automático
+
+## 📄 Licencia
+
+Este proyecto es privado y pertenece a Verlamente.
+
+---
+
+**Desarrollado con ❤️ por Verlamente**
