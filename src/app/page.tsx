@@ -475,10 +475,21 @@ export default function Home() {
 
         /* ——— Scroll estable en la propia página ——— */
         #home-scroll { overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; }
+        
+        /* ——— Asegurar que elementos interactivos funcionen ——— */
+        button, a, input, select, textarea {
+          pointer-events: auto !important;
+          cursor: pointer !important;
+        }
+        
+        /* ——— Hover effects funcionen ——— */
+        .group:hover {
+          pointer-events: auto !important;
+        }
       `}</style>
       <style jsx global>{`
         * {
-          cursor: none !important;
+          cursor: auto !important;
         }
 
         .custom-cursor {

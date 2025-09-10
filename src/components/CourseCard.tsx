@@ -69,7 +69,7 @@ export default function CourseCard() {
 
           {/* CTA móvil — ocupa TODO el ancho y centrado */}
           <div className="mt-4 md:hidden">
-            <a
+            <Link
               href="/creator-lab"
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white
                          bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))]
@@ -81,7 +81,7 @@ export default function CourseCard() {
               <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
                 <path d="M12.293 4.293a1 1 0 011.414 0l4 4a.999.999 0 010 1.414l-4 4a1 1 0 11-1.414-1.414L14.586 10H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"/>
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -94,7 +94,7 @@ export default function CourseCard() {
             </span>
           </div>
 
-          <a
+          <Link
             href="/creator-lab"
             className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white
                        bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))]
@@ -106,7 +106,7 @@ export default function CourseCard() {
             <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
               <path d="M12.293 4.293a1 1 0 011.414 0l4 4a.999.999 0 010 1.414l-4 4a1 1 0 11-1.414-1.414L14.586 10H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"/>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </article>
