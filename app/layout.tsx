@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="h-full scroll-smooth">
-      <body className="min-h-screen bg-[#0A0C10] text-slate-200 antialiased overflow-x-hidden">
+      <body className="min-h-screen bg-[#0A0C10] text-slate-200 antialiased">
         {/* Fondo decorativo: detrás y sin interceptar eventos */}
         <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_-10%,rgba(56,189,248,0.10),transparent_60%)]" />

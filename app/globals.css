@@ -5,18 +5,11 @@
 /* Base oscuro suave */
 @layer base {
   body {
-    @apply bg-[#0A0C10] text-white/90;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(35, 38, 45, 1) 0%,
-      rgba(17, 19, 24, 0.95) 50%,
-      rgba(10, 12, 16, 1) 100%
-    );
+    @apply text-white/90;
     min-height: 100vh;
-    /* Scroll estable en móvil */
-    overflow-y: auto;
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    position: relative;
   }
 }
 
