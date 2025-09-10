@@ -404,3 +404,10 @@ body::after {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.15);
 }
+
+/* ===== Hotfix Creator Lab ===== */
+html, body { min-height: 100%; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+body { background-color: #0A0C10; color: #E2E8F0; }
+h1, h2, h3, h4, h5, h6 { color: #F1F5F9; }
+

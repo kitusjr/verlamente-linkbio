@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Download, Book, Users, Coffee, Search, Instagram, Command, Mic, Package } from 'lucide-react';
+import { Download, Book, Users, Coffee, Search, Instagram, Command, Mic, Package, Video } from 'lucide-react';
 import VisitorCounter from '@/components/VisitorCounter';
 import { IconType } from 'react-icons';
 import { FiChevronDown, FiChevronUp, FiBook, FiBox, FiCoffee, FiGithub, FiInstagram, FiLinkedin, FiTwitter, FiYoutube, FiSearch } from 'react-icons/fi';
 import { HiOutlineFire } from 'react-icons/hi';
 import ActiveVisitors from '@/components/ActiveVisitors';
+import CourseCard from '@/components/CourseCard';
 
 // Mouse tracking for button hover effects
 const handleMouseMove = (e: MouseEvent) => {
@@ -299,11 +300,11 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-white">
+    <main className="min-h-[100svh] overflow-x-hidden">
       <div className="fixed inset-0 flex items-center justify-center p-3 md:p-0">
-        <div className="w-full max-w-[380px] mx-auto">
-          <div className="backdrop-blur-xl bg-white/[0.03] border border-white/[0.05] shadow-2xl shadow-black/20 rounded-2xl p-4">
-            <div className="space-y-3">
+        <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto">
+          <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
+            <div className="space-y-3 md:space-y-4">
               <div className="flex items-center justify-between px-1">
                 <h1 className="text-xs font-medium text-white/80">
                   ¿Qué necesitas?
@@ -331,6 +332,9 @@ export default function Home() {
               </div>
 
               <div className="space-y-2.5">
+                {/* CARD — CREATOR LAB DESTACADA */}
+                <CourseCard />
+
                 {filteredLinks.map((link, idx) => {
                   const isResourcesItem = link.hasSubItems;
                   return (

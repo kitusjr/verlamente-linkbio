@@ -1,0 +1,48 @@
+.fadeScroll{
+  /* canal del scroll siempre presente */
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+  /* Firefox: sin barra visible por defecto */
+  scrollbar-width: none;
+}
+
+.fadeScroll::-webkit-scrollbar{ width: 10px; }
+.fadeScroll::-webkit-scrollbar-track{ background: transparent; }
+.fadeScroll::-webkit-scrollbar-thumb{
+  background: transparent;           /* invisible por defecto */
+  border-radius: 9999px;
+  border: 3px solid transparent;     /* sin "hairline" blanco */
+  background-clip: padding-box;
+  transition: background .25s ease;
+}
+.fadeScroll::-webkit-scrollbar-corner{ background: transparent; }
+
+/* visible solo al hacer scroll o hover */
+.fadeScroll:hover,
+.scrolling{ scrollbar-width: thin; }
+.scrolling::-webkit-scrollbar-thumb,
+.fadeScroll:hover::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.22); }
+
+/* Viewport estable para móviles */
+.viewport{
+  width: 100vw;                 /* fija el ancho: evita micro-desplazamientos laterales */
+  padding-left: max(0px, env(safe-area-inset-left));
+  padding-right: max(0px, env(safe-area-inset-right));
+}
+@supports (height: 100dvh) {
+  .viewport{ height: 100dvh; }
+}
+@supports not (height: 100dvh) {
+  .viewport{ height: 100svh; } /* fallback estable */
+}
+
+/* anclaje suave dentro del contenedor de la página del curso */
+.fadeScroll{
+  scroll-behavior: smooth;
+}
+
+/* margen al hacer scroll a una sección con id */
+.anchorTarget{
+  scroll-margin-top: 16px; /* ajusta si quieres más espacio por arriba */
+}
