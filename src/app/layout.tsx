@@ -4,6 +4,7 @@ import "./globals.css";
 import { BackgroundAnimation } from './components/BackgroundAnimation';
 import ScrollUnlocker from "@/components/ScrollUnlocker";
 import MobileScrollFix from "./components/MobileScrollFix";
+import TouchUnlocker from "./components/TouchUnlocker";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,6 +63,7 @@ export default function RootLayout({
         {/* FIXES DE SCROLL */}
         <ScrollUnlocker />
         <MobileScrollFix />
+        <TouchUnlocker />
       </body>
     </html>
   );
