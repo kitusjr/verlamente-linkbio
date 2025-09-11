@@ -301,6 +301,23 @@ export default function Home() {
 
   return (
     <>
+      {/* DEBUG MÓVIL TEMPORAL */}
+      <div className="fixed top-0 right-0 bg-red-500 text-white p-2 text-xs z-50 md:hidden">
+        <div>Touch: {typeof window !== 'undefined' && 'ontouchstart' in window ? 'YES' : 'NO'}</div>
+        <div>Viewport: {typeof window !== 'undefined' ? `${window.innerWidth}x${window.innerHeight}` : 'N/A'}</div>
+        <div>Body overflow: {typeof document !== 'undefined' ? getComputedStyle(document.body).overflow : 'N/A'}</div>
+        <button 
+          className="bg-blue-500 px-2 py-1 mt-1 text-xs"
+          onClick={() => {
+            document.body.style.overflow = 'auto'
+            document.documentElement.style.overflow = 'auto'
+            alert('Scroll forzado!')
+          }}
+        >
+          Force Scroll
+        </button>
+      </div>
+
       {/* WRAPPER: fija el ámbito de los overrides SOLO para la home */}
       <main id="home-fix" className="relative z-0 min-h-[100svh] w-full bg-transparent text-slate-200">
         {/* ÁREA SCROLLEABLE explícita (por si un padre flex estaba encajonando) */}
