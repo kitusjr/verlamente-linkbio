@@ -9,10 +9,10 @@ export default function MobileScrollFix() {
       const fix = () => {
         document.documentElement.style.overflow = 'auto'
         document.documentElement.style.overflowY = 'auto'
-        document.documentElement.style.webkitOverflowScrolling = 'touch'
+        document.documentElement.style.setProperty('-webkit-overflow-scrolling', 'touch')
         document.body.style.overflow = 'auto'
         document.body.style.overflowY = 'auto' 
-        document.body.style.webkitOverflowScrolling = 'touch'
+        document.body.style.setProperty('-webkit-overflow-scrolling', 'touch')
         document.body.style.height = 'auto'
         document.body.style.position = 'relative'
       }
