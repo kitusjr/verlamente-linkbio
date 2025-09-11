@@ -18,7 +18,7 @@ export default function ScrollFixer() {
           if (style.top === '0px' && style.right === '0px' && 
               style.bottom === '0px' && style.left === '0px') {
             if (style.pointerEvents !== 'none') {
-              el.style.pointerEvents = 'none'
+              (el as HTMLElement).style.pointerEvents = 'none'
             }
           }
         })
