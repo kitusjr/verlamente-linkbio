@@ -304,9 +304,9 @@ export default function Home() {
 
       {/* CONTENIDO PRINCIPAL - SIN OVERLAYS BLOQUEADORES */}
       <main className="min-h-[100svh] py-8 px-4">
-        <div className="flex items-center justify-center min-h-[calc(100svh-4rem)]">
-          <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto relative z-10">
-              <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
+        <div className="px-4 pt-[max(14px,env(safe-area-inset-top))] pb-[max(18px,env(safe-area-inset-bottom))] md:fixed md:inset-0 md:flex md:items-center md:justify-center md:p-0">
+          <div className="mx-auto w-full max-w-[420px] md:max-w-[640px] lg:max-w-[720px]">
+              <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-4 sm:p-5 md:p-6">
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center justify-between px-1">
                     <h1 className="text-xs font-medium text-white/80">
@@ -334,7 +334,7 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className="space-y-2.5">
+                  <div className="space-y-2 sm:space-y-2.5">
                     {/* CARD — CREATOR LAB DESTACADA */}
                     <CourseCard />
 
@@ -387,7 +387,7 @@ export default function Home() {
                                   : 'animate-dropdown-enter'
                               }`}
                             >
-                              <div className="pl-6 space-y-2.5">
+                              <div className="pl-6 space-y-2 sm:space-y-2.5">
                                 {filteredSubResources.map((subLink, idx) => (
                                   <div
                                     key={idx}
