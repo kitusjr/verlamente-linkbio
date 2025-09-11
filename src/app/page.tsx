@@ -305,7 +305,7 @@ export default function Home() {
       <main id="home-fix" className="relative z-0 min-h-[100svh] w-full bg-transparent text-slate-200">
         {/* ÁREA SCROLLEABLE explícita (por si un padre flex estaba encajonando) */}
         <div id="home-scroll" className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
-          <div className="min-h-screen flex items-center justify-center p-3 md:p-0">
+          <div className="min-h-[100svh] md:min-h-screen flex items-center justify-center p-3 md:p-0">
             <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto">
               <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
                 <div className="space-y-3 md:space-y-4">
