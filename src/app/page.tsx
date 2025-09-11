@@ -302,12 +302,10 @@ export default function Home() {
   return (
     <>
 
-      {/* WRAPPER: fija el ámbito de los overrides SOLO para la home */}
-      <main id="home-fix" className="relative z-0 min-h-[100svh] w-full bg-transparent text-slate-200">
-        {/* ÁREA SCROLLEABLE explícita (por si un padre flex estaba encajonando) */}
-        <div id="home-scroll" className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
-          <div className="min-h-[100svh] md:min-h-screen py-8 px-4 flex items-center justify-center">
-            <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto">
+      {/* CONTENIDO PRINCIPAL - SIN OVERLAYS BLOQUEADORES */}
+      <main className="min-h-[100svh] py-8 px-4">
+        <div className="flex items-center justify-center min-h-[calc(100svh-4rem)]">
+          <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto relative z-10">
               <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center justify-between px-1">
@@ -451,7 +449,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
           </div>
           <ActiveVisitors />
         </div>
