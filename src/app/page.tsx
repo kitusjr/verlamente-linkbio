@@ -301,87 +301,156 @@ export default function Home() {
 
   return (
     <>
-      {/* CONTENEDOR PRINCIPAL - SIN OVERLAYS */}
-      <div className="min-h-screen flex items-center justify-center p-3 md:p-0">
-        <div className="flex items-center justify-center min-h-[calc(100svh-4rem)]">
-          <div className="w-full max-w-sm mx-auto relative z-10">
-            
-            {/* TARJETA PRINCIPAL */}
-            <div className="bg-gray-900/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-800 shadow-2xl">
-              
-              {/* ICONO */}
-              <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-                </svg>
+
+      {/* CONTENIDO PRINCIPAL - SIN OVERLAYS BLOQUEADORES */}
+      <main className="min-h-screen flex items-center justify-center p-3 md:p-0">
+        <div className="w-full max-w-[380px] md:max-w-[640px] lg:max-w-[720px] mx-auto relative z-10">
+            <div className="backdrop-blur-xl bg-white/[0.03] border border-white/10 shadow-[0_8px_60px_rgba(0,0,0,0.35)] rounded-2xl p-5 md:p-6">
+              <div className="space-y-3 md:space-y-4">
+                <div className="flex items-center justify-between px-1">
+                  <h1 className="text-xs font-medium text-white/80">
+                    ¿Qué necesitas?
+                  </h1>
+                  <div className="text-[9px] text-white/50">⌘K para buscar</div>
+                </div>
+
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                    <FiSearch className="w-4 h-4 text-white/40" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder={typingText}
+                    value={searchTerm}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      if (e.target.value !== '') {
+                        setShowSubResources(true);
+                      }
+                    }}
+                    onKeyDown={handleKeyDown}
+                    className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white/20 transition-all duration-300 ease-out hover:bg-white/[0.05] focus:scale-[1.02] focus:shadow-lg focus:shadow-black/20"
+                  />
+                </div>
+
+                <div className="space-y-2.5">
+                  {/* CARD — CREATOR LAB DESTACADA */}
+                  <CourseCard />
+
+                  {filteredLinks.map((link, idx) => {
+                    const isResourcesItem = link.hasSubItems;
+                    return (
+                      <div
+                        key={idx}
+                        className={`relative group cursor-pointer ${
+                          link.isDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                        onClick={(e) => {
+                          if (link.isDisabled) return;
+                          if (link.hasSubItems) {
+                            handleResourcesClick(e);
+                          } else {
+                            window.open(link.href, link.target || '_self');
+                          }
+                        }}
+                      >
+                        <div className={`backdrop-blur-xl ${
+                          idx === 0 ? 'premium-card' : 'bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12]'
+                        } transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5`}>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3.5">
+                              <div className={`w-8 h-8 rounded-lg ${
+                                idx === 0 ? 'premium-icon' : 'bg-white/[0.04] border border-white/[0.08]'
+                              } flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110`}>
+                                <link.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
+                              </div>
+                              <div className="space-y-1">
+                                <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.category}</div>
+                                <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{link.action}</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                                <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.shortcut}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {isResourcesItem && (showSubResources || isAnimatingOut) && (
+                          <div 
+                            ref={dropdownRef}
+                            className={`mt-2 ${
+                              isAnimatingOut 
+                                ? 'animate-dropdown-exit' 
+                                : 'animate-dropdown-enter'
+                            }`}
+                          >
+                            <div className="pl-6 space-y-2.5">
+                              {filteredSubResources.map((subLink, idx) => (
+                                <div
+                                  key={idx}
+                                  className="relative group cursor-pointer"
+                                  onClick={() => window.open(subLink.href, subLink.target || '_self')}
+                                >
+                                  <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-3.5">
+                                        <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110">
+                                          <subLink.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
+                                        </div>
+                                        <div className="space-y-1">
+                                          <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{subLink.category}</div>
+                                          <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{subLink.action}</div>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                                          <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{subLink.shortcut}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="pt-2">
+                  <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] rounded-xl p-3 shadow-lg shadow-black/10">
+                    <div className="flex items-center justify-center">
+                      <div className="flex items-center gap-3">
+                        {socials.map((social, index) => (
+                          <a
+                            key={index}
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative"
+                            title={social.name}
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                              <social.icon className="w-3.5 h-3.5 text-white/60 transition-all duration-300 group-hover:text-white/80 group-hover:scale-110" />
+                            </div>
+                            <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/90 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                              {social.name}
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              {/* TÍTULO */}
-              <h1 className="text-xl font-bold mb-2">Creator Lab – Crea tu marca viral con el mismo flujo que uso cada día</h1>
-              
-              {/* DESCRIPCIÓN */}
-              <p className="text-gray-400 mb-6">Mi flujo exacto y <span className="text-white font-semibold">+2000 recursos virales</span>.</p>
-              
-              {/* BADGES */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">Sin experiencia previa</span>
-                <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">Kit Creator Lab</span>
-                <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">+2000 Clips</span>
-                <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">GPT personalizado</span>
-                <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">Acceso de por vida</span>
-                <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">Chat de soporte incluido</span>
-              </div>
-              
-              {/* BOTÓN PRINCIPAL */}
-              <button className="w-full bg-gradient-to-r from-cyan-500 to-green-400 text-black font-semibold py-3 px-6 rounded-xl hover:opacity-90 transition-all duration-300 mb-4">
-                Unirme ahora →
-              </button>
-              
-              {/* PRECIO */}
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-gray-500 line-through text-lg">97€</span>
-                <span className="text-green-400 text-2xl font-bold">47€</span>
-              </div>
-              
-              {/* BOTÓN SECUNDARIO */}
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors">
-                Unirme ahora →
-              </button>
-              
             </div>
-            
-            {/* SECCIONES ADICIONALES */}
-            <div className="mt-6 space-y-4">
-              <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-gray-800 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400">Mi libro</div>
-                  <div className="font-semibold">VERLAMENTE</div>
-                </div>
-                <div className="ml-auto text-xs text-gray-500">⌘N</div>
-              </div>
-              
-              <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-gray-800 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400">Recursos</div>
-                  <div className="font-semibold">Kit de creadores</div>
-                </div>
-                <div className="ml-auto text-xs text-gray-500">⌘K</div>
-              </div>
-            </div>
-            
-          </div>
         </div>
-      </div>
+        <ActiveVisitors />
+      </main>
 
       {/* Overrides LOCALES SOLO PARA LA HOME */}
       <style jsx global>{`
