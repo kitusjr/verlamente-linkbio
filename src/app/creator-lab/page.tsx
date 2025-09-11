@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { Check } from "lucide-react";
 import styles from "./fade-scroll.module.css";
 import RouteScrollFix from "@/components/RouteScrollFix";
 import SiteFooter from "@/components/SiteFooter";
@@ -90,7 +91,7 @@ export default function Page() {
                 </p>
               </header>
 
-              <div className="mb-5 flex flex-wrap gap-2">
+              <div className="mb-5 flex flex-wrap gap-2 justify-center md:justify-start">
                 <span className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70">Sin experiencia previa</span>
                 <span className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70">Kit Creator Lab</span>
                 <span className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70">GPT personalizado</span>
@@ -108,12 +109,25 @@ export default function Page() {
                 </section>
 
                 <div className="mb-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-                  <a href="https://whop.com/creatorlaboficial/?utm_source=site&utm_medium=cta_hero"
-                     target="_blank" rel="noopener"
-                     className="inline-flex h-11 items-center justify-center rounded-xl bg-cyan-400 px-5 text-sm font-semibold text-[#051018] hover:opacity-90">
-                    Unirme ahora — 47€
+                  <a
+                    href="https://whop.com/creatorlaboficial/?utm_source=site&utm_medium=cta_hero"
+                    target="_blank" rel="noopener"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl
+                               bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))]
+                               px-5 sm:px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(2,132,199,0.18)]
+                               hover:brightness-110 active:scale-[0.99]"
+                  >
+                    Aprovechar oferta de lanzamiento
+                    <span className="ml-1 rounded-md bg-emerald-500/15 px-2 py-[2px] text-xs font-bold text-emerald-300 ring-1 ring-emerald-400/30">
+                      47€
+                    </span>
                   </a>
-                  <a href="#temario" className="px-4 py-2 rounded-md border border-white/10 hover:bg-white/10">
+
+                  <a
+                    href="#temario"
+                    className="w-full sm:w-auto text-center rounded-xl border border-white/10 px-4 sm:px-6 py-3
+                               hover:bg-white/10"
+                  >
                     Ver temario
                   </a>
                 </div>
@@ -225,11 +239,18 @@ export default function Page() {
                   <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
                     <div>
                       <h3 className="text-lg font-semibold">Creator Lab — acceso de por vida</h3>
-                      <ul className="mt-2 list-disc list-inside text-sm text-white/80 marker:text-white/50">
-                        <li>Mi flujo de trabajo completo (Premiere y replicable en CapCut) para pasar de idea a vídeo viral en 20 min.</li>
-                        <li>Kit con +2000 clips, overlays y SFX.</li>
-                        <li>GPT de guiones virales listo para usar.</li>
-                        <li>Actualizaciones futuras del kit incluidas.</li>
+                      <ul className="mt-2 space-y-2 text-sm text-white/80">
+                        {[
+                          "Mi flujo de trabajo completo (Premiere y replicable en CapCut) para pasar de idea a vídeo viral en 20 min.",
+                          "Kit con +2000 clips, overlays y SFX.",
+                          "GPT de guiones virales listo para usar.",
+                          "Actualizaciones futuras del kit incluidas.",
+                        ].map((t, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <Check className="mt-[2px] h-4 w-4 shrink-0 text-emerald-400" />
+                            <span>{t}</span>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                     <div className="flex items-center gap-3">
