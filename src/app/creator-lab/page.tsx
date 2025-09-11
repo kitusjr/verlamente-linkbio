@@ -102,8 +102,9 @@ export default function Page() {
               <div className="space-y-6 md:space-y-8 xl:space-y-10">
                 <section className="mb-5">
                   <figure className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+                    {/* Desktop: vídeo (webm) */}
                     <video
-                      className="block w-full aspect-[16/9] object-cover"
+                      className="hidden md:block w-full aspect-[16/9] object-cover"
                       autoPlay
                       muted
                       loop
@@ -113,6 +114,13 @@ export default function Page() {
                     >
                       <source src="/assets/creator-lab/preview.webm" type="video/webm" />
                     </video>
+
+                    {/* Móvil: GIF (o JPG) */}
+                    <img
+                      src="/assets/creator-lab/preview.gif"
+                      alt="Vista del curso por dentro"
+                      className="block md:hidden w-full h-auto"
+                    />
                   </figure>
                 </section>
 
@@ -129,7 +137,7 @@ export default function Page() {
 
                 <section className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-7 mb-5 md:mb-6">
                   <h2 className="text-xl font-semibold mb-3">Lo que te llevas hoy</h2>
-                  <ul className="space-y-3 text-[15px] leading-6 text-white/80 list-disc pl-5 marker:text-white/40">
+                  <ul className="space-y-3 text-[15px] leading-6 text-white/80 list-disc list-inside marker:text-white/50">
                     <li><strong>Flujo completo</strong> en Premiere (replicable en CapCut) para pasar de idea a vídeo vídeo viral en 20 min.</li>
                     <li><strong>Kit Creator Lab</strong>: +2000 clips, overlays, transiciones, bordes, canciones virales y SFX.</li>
                     <li><strong>GPT personalizado</strong> para guiones virales: reestructura, humaniza y añade emoción en 1 clic.</li>
@@ -163,7 +171,7 @@ export default function Page() {
                       <h3 className="text-foreground font-semibold tracking-tight">
                         Módulo 0. Bienvenida – Tu Ruta en Creator Lab
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc pl-5">
+                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc list-inside marker:text-white/50">
                         <li>Cómo sacar el máximo partido al programa</li>
                         <li>Mentalidad: de consumidor a dueño de una marca rentable</li>
                       </ul>
@@ -174,7 +182,7 @@ export default function Page() {
                       <h3 className="text-foreground font-semibold tracking-tight">
                         Módulo 1. Construye tu Identidad de Marca Viral
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc pl-5">
+                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc list-inside marker:text-white/50">
                         <li>Tu factor único: cómo destacar frente a todos</li>
                         <li>Tu marca de adentro hacia afuera – Guía para definir tu identidad</li>
                         <li>Diseña tu logo con propósito</li>
@@ -189,7 +197,7 @@ export default function Page() {
                       <h3 className="text-foreground font-semibold tracking-tight">
                         Módulo 2. Todo lo que Necesitas para Empezar a Editar
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc pl-5">
+                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc list-inside marker:text-white/50">
                         <li>Cómo encontrar cualquier clip en minutos</li>
                         <li>Kit de recursos Creator Lab</li>
                       </ul>
@@ -200,7 +208,7 @@ export default function Page() {
                       <h3 className="text-foreground font-semibold tracking-tight">
                         Módulo 3. Edición Viral Paso a Paso
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc pl-5">
+                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc list-inside marker:text-white/50">
                         <li>Edita como un pro – Edición pro con Premiere Pro</li>
                         <li>Cómo crear miniaturas</li>
                       </ul>
@@ -211,7 +219,7 @@ export default function Page() {
                       <h3 className="text-foreground font-semibold tracking-tight">
                         Módulo 4. Cómo Utilizo la Inteligencia Artificial en mi Día a Día
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc pl-5">
+                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc list-inside marker:text-white/50">
                         <li>Mi flujo de trabajo diario con IA</li>
                         <li>Mis prompts favoritos para IA (PDF)</li>
                         <li>Mi GPT secreto para crear guiones virales</li>
@@ -223,7 +231,7 @@ export default function Page() {
                       <h3 className="text-foreground font-semibold tracking-tight">
                         Módulo 5. Cómo Monetizar tu Contenido como Creador Digital
                       </h3>
-                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc pl-5">
+                      <ul className="mt-3 space-y-1.5 text-[13px] md:text-sm text-white/80 list-disc list-inside marker:text-white/50">
                         <li>Guía avanzada de monetización</li>
                       </ul>
                     </article>
@@ -234,7 +242,7 @@ export default function Page() {
                   <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
                     <div>
                       <h3 className="text-lg font-semibold">Creator Lab — acceso de por vida</h3>
-                      <ul className="mt-2 list-disc pl-5 text-sm text-white/80 marker:text-white/40">
+                      <ul className="mt-2 list-disc list-inside text-sm text-white/80 marker:text-white/50">
                         <li>Mi flujo de trabajo completo (Premiere y replicable en CapCut) para pasar de idea a vídeo viral en 20 min.</li>
                         <li>Kit con +2000 clips, overlays y SFX.</li>
                         <li>GPT de guiones virales listo para usar.</li>
@@ -276,28 +284,6 @@ export default function Page() {
                   </div>
                 </section>
 
-                <div
-                  className="fixed bottom-4 left-1/2 z-50 w-[95%] max-w-3xl -translate-x-1/2 rounded-2xl border border-white/10 bg-black/70 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.4)] pointer-events-none"
-                >
-                  {/* Texto de lanzamiento */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 text-sm">
-                    <div className="flex items-center gap-2">
-                      <span className="text-slate-500 line-through">97€</span>
-                      <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-400/30">
-                        47€
-                      </span>
-                    </div>
-                    <span className="text-slate-400">precio de lanzamiento · subirá pronto</span>
-                  </div>
-
-                  {/* Botón CTA */}
-                  <a
-                    href="http://localhost:3000/creator-lab"
-                    className="shrink-0 rounded-xl bg-[linear-gradient(90deg,rgba(2,132,199,0.95),rgba(16,185,129,0.95))] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(2,132,199,0.18)] transition active:scale-[0.99] hover:brightness-110 pointer-events-auto"
-                  >
-                    Unirme ahora
-                  </a>
-                </div>
               </div>
             </main>
           </div>

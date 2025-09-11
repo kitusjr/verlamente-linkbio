@@ -343,7 +343,7 @@ export default function Home() {
                       return (
                         <div
                           key={idx}
-                          className={`relative group cursor-pointer ${
+                          className={`relative group cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none [-webkit-tap-highlight-color:transparent] ${
                             link.isDisabled ? 'opacity-50 cursor-not-allowed' : ''
                           }`}
                           onClick={(e) => {
@@ -355,9 +355,14 @@ export default function Home() {
                             }
                           }}
                         >
-                          <div className={`backdrop-blur-xl ${
-                            idx === 0 ? 'premium-card' : 'bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12]'
-                          } transition-all duration-300 ease-out rounded-xl p-3.5 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20 hover:scale-[1.01] hover:-translate-y-0.5`}>
+                          <div
+                            className={`rounded-xl p-3.5 transition-all duration-300 ease-out shadow-lg shadow-black/10
+                                        focus:outline-none focus:ring-0 active:ring-0 active:scale-[0.99]
+                                        ${idx === 0
+                                          ? 'premium-card'
+                                          : 'backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12]'
+                                        }`}
+                          >
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-3.5">
                                 <div className={`w-8 h-8 rounded-lg ${
