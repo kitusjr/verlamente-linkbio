@@ -12,7 +12,7 @@ export default function TouchUnlocker() {
         const fixedElements = document.querySelectorAll('.fixed')
         const absoluteElements = document.querySelectorAll('[style*="position: fixed"], [style*="position: absolute"]')
         
-        [...fixedElements, ...absoluteElements].forEach(el => {
+        Array.from(fixedElements).concat(Array.from(absoluteElements)).forEach(el => {
           const computed = getComputedStyle(el)
           
           // Si es un overlay full-screen sin pointer-events-none
