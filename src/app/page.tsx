@@ -9,6 +9,7 @@ import { FiChevronDown, FiChevronUp, FiBook, FiBox, FiCoffee, FiGithub, FiInstag
 import { HiOutlineFire } from 'react-icons/hi';
 import ActiveVisitors from '@/components/ActiveVisitors';
 import CourseCard from '@/components/CourseCard';
+import SiteFooter from '@/components/SiteFooter';
 
 // Mouse tracking for button hover effects
 const handleMouseMove = (e: MouseEvent) => {
@@ -343,8 +344,8 @@ export default function Home() {
                       return (
                         <div
                           key={idx}
-                          className={`relative group cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none [-webkit-tap-highlight-color:transparent] ${
-                            link.isDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                          className={`relative select-none ${
+                            link.isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                           }`}
                           onClick={(e) => {
                             if (link.isDisabled) return;
@@ -356,28 +357,30 @@ export default function Home() {
                           }}
                         >
                           <div
-                            className={`rounded-xl p-3.5 transition-all duration-300 ease-out shadow-lg shadow-black/10
-                                        focus:outline-none focus:ring-0 active:ring-0 active:scale-[0.99]
+                            className={`rounded-xl overflow-hidden [-webkit-tap-highlight-color:transparent]
+                                        transition-all duration-300 ease-out shadow-lg shadow-black/10
                                         ${idx === 0
                                           ? 'premium-card'
                                           : 'backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12]'
                                         }`}
                           >
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3.5">
-                                <div className={`w-8 h-8 rounded-lg ${
-                                  idx === 0 ? 'premium-icon' : 'bg-white/[0.04] border border-white/[0.08]'
-                                } flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110`}>
-                                  <link.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
+                            <div className="p-3.5">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3.5">
+                                  <div className={`w-8 h-8 rounded-lg ${
+                                    idx === 0 ? 'premium-icon' : 'bg-white/[0.04] border border-white/[0.08]'
+                                  } flex items-center justify-center transition-all duration-300 group-hover:bg-white/[0.06] group-hover:border-white/[0.12] group-hover:scale-110`}>
+                                    <link.icon className="w-4 h-4 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-110" />
+                                  </div>
+                                  <div className="space-y-1">
+                                    <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.category}</div>
+                                    <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{link.action}</div>
+                                  </div>
                                 </div>
-                                <div className="space-y-1">
-                                  <div className="text-[10px] text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.category}</div>
-                                  <div className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">{link.action}</div>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
-                                  <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.shortcut}</span>
+                                <div className="flex items-center gap-2">
+                                  <div className="h-[20px] min-w-[38px] px-2 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:bg-white/[0.05] group-hover:border-white/[0.1] group-hover:scale-105">
+                                    <span className="text-[9px] leading-none text-white/40 transition-colors duration-300 group-hover:text-white/60">{link.shortcut}</span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -457,6 +460,7 @@ export default function Home() {
           </div>
           <ActiveVisitors />
         </div>
+        <SiteFooter />
       </main>
 
       {/* Overrides LOCALES SOLO PARA LA HOME */}
