@@ -413,3 +413,45 @@ main { min-height: 100%; }
 /* No bloquear el gesto de desplazar */
 html, body { touch-action: pan-y; }
 
+/* FIXES ESPECÍFICOS PARA MÓVIL */
+@media (max-width: 768px) {
+  html {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: auto !important;
+  }
+  
+  body {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: auto !important;
+    position: relative !important;
+    /* CRÍTICO: Remover cualquier position fixed en body */
+  }
+  
+  /* Asegurar que el contenido principal sea scrolleable */
+  main, #__next, [data-nextjs-scroll-focus-boundary] {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    min-height: 100svh !important; /* svh es mejor que vh en móvil */
+  }
+  
+  /* Eliminar fixed positioning problemático en móvil */
+  .fixed {
+    position: absolute !important;
+  }
+  
+  /* Excepto elementos que DEBEN ser fixed (como notificaciones) */
+  .fixed.z-50, .fixed.z-40, [class*="toast"], [class*="modal"] {
+    position: fixed !important;
+  }
+}
+
+/* iOS Safari específico */
+@supports (-webkit-touch-callout: none) {
+  body {
+    -webkit-overflow-scrolling: touch !important;
+    overflow-y: auto !important;
+  }
+}
+
