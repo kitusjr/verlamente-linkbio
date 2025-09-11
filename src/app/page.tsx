@@ -302,7 +302,7 @@ export default function Home() {
   return (
     <>
       {/* CONTENEDOR PRINCIPAL - SIN OVERLAYS */}
-      <div className="min-h-[100svh] py-8 px-4 overflow-y-auto">
+      <div className="min-h-screen flex items-center justify-center p-3 md:p-0">
         <div className="flex items-center justify-center min-h-[calc(100svh-4rem)]">
           <div className="w-full max-w-sm mx-auto relative z-10">
             
