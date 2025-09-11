@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import styles from "./fade-scroll.module.css";
 import RouteScrollFix from "@/components/RouteScrollFix";
 import SiteFooter from "@/components/SiteFooter";
+import PreviewMedia from "@/components/PreviewMedia";
 
 export default function Page() {
   const ref = useRef<HTMLDivElement>(null);
@@ -102,31 +103,8 @@ export default function Page() {
 
               <div className="space-y-6 md:space-y-8 xl:space-y-10">
                 <section className="mb-5">
-                  <figure className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-                    {/* Desktop: vídeo (webm) */}
-                    <video
-                      className="hidden md:block w-full aspect-[16/9] object-cover"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      aria-label="Vista del curso por dentro"
-                      poster="/assets/creator-lab/preview.jpg"
-                    >
-                      <source src="/assets/creator-lab/preview.webm" type="video/webm" />
-                    </video>
-
-                    {/* Móvil: GIF (con fallback JPG) */}
-                    <picture className="block md:hidden">
-                      <source srcSet="/assets/creator-lab/preview.gif" type="image/gif" />
-                      <img
-                        src="/assets/creator-lab/preview.jpg"
-                        alt="Vista del curso por dentro"
-                        className="block w-full h-auto"
-                      />
-                    </picture>
-                  </figure>
+                  <h2 className="sr-only">Vista del curso por dentro</h2>
+                  <PreviewMedia />
                 </section>
 
                 <div className="mb-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
