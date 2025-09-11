@@ -58,13 +58,13 @@ export function BackgroundAnimation() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
+      // NO prevenir el scroll en móvil
       const touch = e.touches[0];
       handleMove(touch.clientX, touch.clientY);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -82,7 +82,7 @@ export function BackgroundAnimation() {
           background-color: #000000;
           overflow: hidden;
           z-index: -10;
-          cursor: none;
+          pointer-events: none;
           --mouse-x: 50%;
           --mouse-y: 50%;
         }
