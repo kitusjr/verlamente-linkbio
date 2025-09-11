@@ -2,33 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* FORCE SCROLL ON ALL DEVICES */
 html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
   overflow-y: auto !important;
-  background-color: #000;
-  color: rgba(255, 255, 255, 0.9);
+  background-color: #000 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  height: auto !important;
+  position: relative !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
-/* MOBILE SCROLL FIXES */
+/* MOBILE SCROLL FIXES - MÁS AGRESIVO */
 @media (max-width: 768px) {
   html, body {
     -webkit-overflow-scrolling: touch !important;
     overflow-y: auto !important;
+    overflow: auto !important;
+    height: auto !important;
+    position: relative !important;
+    max-height: none !important;
+  }
+  
+  main, #__next, #home-fix, #home-scroll {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    min-height: 100svh !important;
     height: auto !important;
     position: relative !important;
   }
   
-  main, #__next {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    min-height: 100svh !important;
+  /* FORCE ALL CONTAINERS TO ALLOW SCROLL */
+  * {
+    overflow-x: hidden !important;
   }
 }
 
 @supports (-webkit-touch-callout: none) {
-  body {
+  html, body {
     -webkit-overflow-scrolling: touch !important;
+    overflow-y: auto !important;
   }
 }
